@@ -6,16 +6,12 @@ library(prophet)
 library(Metrics)
 
 ##Reading dataset
-#crimes2005_2007 = read.csv("Dataset/2005_to_2007.csv")
-#crimes2008_2011 = read.csv("Dataset/2008_to_2011.csv",stringsAsFactors=F)
 crimes2012_2017 = read.csv("Dataset/2012_to_2017.csv",stringsAsFactors=F)
 
-#crimes2008_2011 = crimes2008_2011[,c('Date', 'ID')]
 crimes2012_2015 = crimes2012_2017[crimes2012_2017$Year %in% c('2012', '2013', '2014', '2015'), 
                                   c('Date', 'ID')] # Picking 2012 to 2015 crimes only!
 
 crimes =  crimes2012_2015[,]
-#crimes = rbind(crimes2008_2011,crimes2012_2015)
 
 crimes$Date = as.Date(crimes$Date, "%m/%d/%Y %I:%M:%S %p")
 
@@ -61,5 +57,5 @@ all$yp=crimes2016_predicted$ya
 
 ## Calculating MSE & MAPE
 rmse(actual =  crimes2016$y,predicted = crimes2016_predicted$ya) / mean(crimes2016$y)
-mae(actual =  crimes2016$y,predicted = crimes2016_predicted$ya)
+mae(actual =  crimes2016$y,predicted = crimes2016_predicted$ya) / mean(crimes2016$y)
 mape(actual = crimes2016$y, predicted = crimes2016_predicted$ya)
